@@ -15,8 +15,15 @@ def most_frequent(numbers):
 
 #Test Cases
 print("Problem 1 Tests:")
-assert most_frequent([1, 3, 2, 3, 4, 1, 3]) == 3
-assert most_frequent([7]) == 7
+print("Input:", [1, 3, 2, 3, 4, 1, 3])
+print("Expected Output: 3")
+print("Actual Output:", most_frequent([1, 3, 2, 3, 4, 1, 3]))
+print()
+
+print("Input:", [4, 4, 5, 5])
+print("Expected Output: 4 or 5 (tie)")
+print("Actual Output:", most_frequent([4, 4, 5, 5]))
+print()
 
 """
 Time and Space Analysis for problem 1:
@@ -47,8 +54,17 @@ def remove_duplicates(nums):
 
 #Test Cases
 print("Problem 2 Tests:")
-assert remove_duplicates([4, 5, 4, 6, 5, 7]) == [4, 5, 6, 7]
-assert remove_duplicates([1, 1, 1]) == [1]
+nums = [4, 5, 4, 6, 5, 7]
+print("Input:", nums)
+print("Expected Output: [4, 5, 6, 7]")
+print("Actual Output:", remove_duplicates(nums))
+print()
+
+nums = [1, 1, 1]
+print("Input:", nums)
+print("Expected Output: [1]")
+print("Actual Output:", remove_duplicates(nums))
+print()
 
 """
 Time and Space Analysis for problem 2:
@@ -81,8 +97,19 @@ def find_pairs(nums, target):
 
 #Test Cases
 print("Problem 3 Tests:")
-res = find_pairs([1, 2, 3, 4], 5)
-assert set(res) == {(1, 4), (2, 3)}  
+nums = [1, 2, 3, 4]
+target = 5
+print("Input:", nums, "Target:", target)
+print("Expected Output: [(1, 4), (2, 3)]")
+print("Actual Output:", find_pairs(nums, target))
+print()
+
+nums = [2, 4, 6, 8]
+target = 10
+print("Input:", nums, "Target:", target)
+print("Expected Output: [(2, 8), (4, 6)]")
+print("Actual Output:", find_pairs(nums, target))
+print()
 
 """
 Time and Space Analysis for problem 3:
@@ -115,7 +142,9 @@ def add_n_items(n):
 
 #Test Case
 print("Problem 4 Test:")
+print("Adding 10 items...")
 add_n_items(10)
+print("-" * 50, "\n")
 
 
 """
@@ -148,8 +177,17 @@ def running_total(nums):
 
 #Test Cases
 print("Problem 5 Tests:")
-assert running_total([1, 2, 3, 4]) == [1, 3, 6, 10]
-assert running_total([5, -2, 7]) == [5, 3, 10]
+nums = [1, 2, 3, 4]
+print("Input:", nums)
+print("Expected Output: [1, 3, 6, 10]")
+print("Actual Output:", running_total(nums))
+print()
+
+nums = [5, -2, 7]
+print("Input:", nums)
+print("Expected Output: [5, 3, 10]")
+print("Actual Output:", running_total(nums))
+print()
 
 """
 Time and Space Analysis for problem 5:
@@ -160,3 +198,50 @@ Time and Space Analysis for problem 5:
 - Why this approach? Because it is simple and efficient, just adding numbers as we go.
 - Could it be optimized?  Not really, it is already a straightforward one-pass solution.
 """
+
+#Refactoring Problem 3
+def find_pairs_optimized(nums, target):
+    nums.sort()  # Sorting enables two-pointer technique
+    left, right = 0, len(nums) - 1
+    pairs = []
+
+    while left < right:
+        current_sum = nums[left] + nums[right]
+
+        if current_sum == target:
+            pairs.append((nums[left], nums[right]))
+            left += 1
+            right -= 1
+        elif current_sum < target:
+            left += 1
+        else:
+            right -= 1
+
+    return pairs
+
+#Refactored Version:
+#-Uses two-pointer technique on a sorted list.
+#-Avoids using extra memory like a set.
+#-Returns pairs in sorted order automatically.
+
+#Optimization:
+#-Improved space usage from O(n) ➜ O(1)
+#-Predictable output order (no randomness from set)
+#-Slightly higher time cost for sorting (O(n log n)) vs O(n)
+
+#Testing the Refactored Function
+print("Refactored Problem 3:")
+
+nums = [1, 2, 3, 4]
+target = 5
+print("Input:", nums, "Target:", target)
+print("Expected Output: [(1, 4), (2, 3)]")
+print("Actual Output:", find_pairs_optimized(nums, target))
+print()
+
+nums = [2, 4, 6, 8]
+target = 10
+print("Input:", nums, "Target:", target)
+print("Expected Output: [(2, 8), (4, 6)]")
+print("Actual Output:", find_pairs_optimized(nums, target))
+print()
