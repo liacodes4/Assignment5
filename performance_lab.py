@@ -7,17 +7,25 @@
 # Output: 3
 
 def most_frequent(numbers):
-    # Your code here
-    pass
+    freq = {}
+    for num in numbers:
+        freq[num] = freq.get(num, 0) + 1
+    return max(freq, key=freq.get)
+
+
+#Test Cases
+print("Problem 1 Tests:")
+assert most_frequent([1, 3, 2, 3, 4, 1, 3]) == 3
+assert most_frequent([7]) == 7
 
 """
 Time and Space Analysis for problem 1:
-- Best-case:
-- Worst-case:
-- Average-case:
-- Space complexity:
-- Why this approach?
-- Could it be optimized?
+- Best-case:0(n)
+- Worst-case:0(n)
+- Average-case:0(n)
+- Space complexity:0(k) where k is the number of unique elements
+- Why this approach? Because counting with a dictionary is simple and efficient.
+- Could it be optimized? Not really, because this is optimal for single-pass frequency counting.
 """
 
 
@@ -29,17 +37,27 @@ Time and Space Analysis for problem 1:
 # Output: [4, 5, 6, 7]
 
 def remove_duplicates(nums):
-    # Your code here
-    pass
+   seen = set()
+   result = []
+   for num in nums:
+        if num not in seen:
+            seen.add(num)
+            result.append(num)
+   return result
+
+#Test Cases
+print("Problem 2 Tests:")
+assert remove_duplicates([4, 5, 4, 6, 5, 7]) == [4, 5, 6, 7]
+assert remove_duplicates([1, 1, 1]) == [1]
 
 """
 Time and Space Analysis for problem 2:
-- Best-case:
-- Worst-case:
-- Average-case:
-- Space complexity:
-- Why this approach?
-- Could it be optimized?
+- Best-case:0(n)
+- Worst-case:0(n)
+- Average-case:0(n)
+- Space complexity:0(n)
+- Why this approach? Because it is a clean and fast way to remove duplicates while keeping the same order.
+- Could it be optimized? Not really, this is the most common and efficient way to do it.
 """
 
 
@@ -52,17 +70,28 @@ Time and Space Analysis for problem 2:
 # Output: [(1, 4), (2, 3)]
 
 def find_pairs(nums, target):
-    # Your code here
-    pass
+    seen = set()
+    pairs = []
+    for num in nums:
+        complement = target - num
+        if complement in seen:
+            pairs.append((complement, num))
+        seen.add(num)
+    return pairs
+
+#Test Cases
+print("Problem 3 Tests:")
+res = find_pairs([1, 2, 3, 4], 5)
+assert set(res) == {(1, 4), (2, 3)}  
 
 """
 Time and Space Analysis for problem 3:
-- Best-case:
-- Worst-case:
-- Average-case:
-- Space complexity:
-- Why this approach?
-- Could it be optimized?
+- Best-case:0(n)
+- Worst-case:0(n)
+- Average-case:0(n)
+- Space complexity:0(n)
+- Why this approach? Because it is quick and simple to check for complements instead of using two loops.
+- Could it be optimized? Only if the list was sorted, then a two-pointer method could also work.
 """
 
 
@@ -75,16 +104,28 @@ Time and Space Analysis for problem 3:
 # add_n_items(6) → should print when resizing happens.
 
 def add_n_items(n):
-    # Your code here
-    pass
+    capacity = 1
+    items = []
+    for i in range(1, n + 1):
+        if len(items) == capacity:
+            print(f"Resizing from {capacity} to {capacity * 2}")
+            capacity *= 2
+        items.append(i)
+        print(f"Added {i}, size={len(items)}, capacity={capacity}")
+
+#Test Case
+print("Problem 4 Test:")
+add_n_items(10)
+
 
 """
 Time and Space Analysis for problem 4:
-- When do resizes happen?
-- What is the worst-case for a single append?
-- What is the amortized time per append overall?
-- Space complexity:
-- Why does doubling reduce the cost overall?
+- When do resizes happen?  Every time the list reaches its current capacity.
+- What is the worst-case for a single append? O(n) when resizing and copying to a new list.
+- What is the amortized time per append overall? O(1), since resizing doesn’t happen often.
+- Space complexity: 0(n)
+- Why does doubling reduce the cost overall? Because it keeps the number of resizes small,
+  spreading out the expensive copy steps over many cheap ones.
 """
 
 
@@ -98,15 +139,24 @@ Time and Space Analysis for problem 4:
 # Because: [1, 1+2, 1+2+3, 1+2+3+4]
 
 def running_total(nums):
-    # Your code here
-    pass
+    totals = []
+    current_sum = 0
+    for num in nums:
+        current_sum += num
+        totals.append(current_sum)
+    return totals
+
+#Test Cases
+print("Problem 5 Tests:")
+assert running_total([1, 2, 3, 4]) == [1, 3, 6, 10]
+assert running_total([5, -2, 7]) == [5, 3, 10]
 
 """
 Time and Space Analysis for problem 5:
-- Best-case:
-- Worst-case:
-- Average-case:
-- Space complexity:
-- Why this approach?
-- Could it be optimized?
+- Best-case:0(n)
+- Worst-case:0(n)
+- Average-case:0(n)
+- Space complexity:0(n)
+- Why this approach? Because it is simple and efficient, just adding numbers as we go.
+- Could it be optimized?  Not really, it is already a straightforward one-pass solution.
 """
